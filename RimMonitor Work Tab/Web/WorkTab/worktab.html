@@ -1,0 +1,56 @@
+<!--
+  Work Tab UI
+  ===========
+  Static DOM template.
+
+  - No CSS
+  - No JS
+  - No data
+  - No logic
+
+  This markup is injected into a full HTML document
+  by WorkTabPage.BuildHtml().
+-->
+
+<div id="worktab">
+
+    <!-- =========================
+         Header
+         ========================= -->
+
+    <div class="worktab-header">
+
+        <!-- Manual priorities toggle (visual only for now) -->
+        <div class="manual-priorities">
+            <span class="label">Manual priorities</span>
+            <span class="state off"></span>
+        </div>
+
+        <!-- Work type column headers -->
+        <div class="worktype-headers">
+            <div class="worktype-header" data-worktype="">
+                <img class="icon" alt="">
+                <span class="label"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================
+         Body
+         ========================= -->
+
+    <div class="worktab-body">
+
+        <div class="colonist-row" data-pawn-id="">
+            <div class="colonist-identity">
+                <img class="avatar" alt="">
+                <span class="name"></span>
+            </div>
+
+            <div class="workcells">
+                <div class="workcell" data-worktype=""></div>
+            </div>
+        </div>
+
+    </div>
+</div>

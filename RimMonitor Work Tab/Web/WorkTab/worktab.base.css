@@ -1,0 +1,304 @@
+﻿/* =========================================================
+   Global background – RimWorld Work Tab
+   ========================================================= */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient( to bottom, #14191d 0%, #0f1418 40%, #0b0f12 100% );
+    font-family: sans-serif;
+}
+
+#worktab {
+    background: transparent;
+}
+
+/* =========================================================
+   Layout
+   ========================================================= */
+
+.worktab-map {
+    margin-bottom: 18px;
+}
+
+.worktab-map-title {
+    color: #cfd6dc;
+    font-size: 13px;
+    margin: 6px 0 4px 6px;
+}
+
+.worktab-header,
+.colonist-row {
+    display: flex;
+    align-items: center;
+}
+
+.worktab-header {
+    margin-bottom: 2px;
+    padding-bottom: 4px;
+}
+
+.worktab-header-spacer {
+    width: 0px;
+}
+
+.worktype-headers {
+    display: flex;
+    align-items: flex-end;
+    column-gap: 6px;
+}
+
+.worktab-body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================================================
+   Work type headers
+   ========================================================= */
+
+.worktype-header {
+    width: 26px;
+    min-width: 26px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+    font-size: 13px;
+    font-weight: 500;
+    color: #e1e6eb;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.6);
+    overflow: visible;
+    white-space: nowrap;
+    height: 32px;
+}
+
+    /* Header staggering – vanilla spacing */
+
+    .worktype-header:nth-child(odd) {
+        transform: translateY(-14px);
+    }
+
+    .worktype-header:nth-child(even) {
+        transform: translateY(0);
+    }
+
+    /* =========================================================
+   Vanilla column guide line (header → grid)
+   ========================================================= */
+
+    .worktype-header::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -14px;
+        width: 1px;
+        height: 14px;
+        transform: translateX(-0.5px);
+        background: linear-gradient( to bottom, rgba(255,255,255,0.25), rgba(255,255,255,0.05) );
+        pointer-events: none;
+    }
+
+/* =========================================================
+   Pawn rows
+   ========================================================= */
+
+.colonist-row {
+    height: 28px;
+}
+
+    .colonist-row:not(:last-child) {
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .colonist-row.disabled {
+        opacity: 0.45;
+    }
+
+/* =========================================================
+   Pawn identity (left column)
+   ========================================================= */
+
+.colonist-identity {
+    width: 220px;
+    display: flex;
+    align-items: center;
+    padding-left: 6px;
+    padding-right: 8px;
+    color: #d0d6db;
+    font-size: 13px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+}
+
+    .colonist-identity .name {
+        font-size: 14px;
+        font-weight: 500;
+        color: #d0d6db;
+        text-shadow: 0 1px 0 rgba(0,0,0,0.6);
+    }
+
+.colonist-row.disabled .colonist-identity .name {
+    color: #6f757a;
+}
+
+/* =========================================================
+   Work cells container
+   ========================================================= */
+
+.workcells {
+    display: flex;
+    flex-direction: row;
+    column-gap: 6px;
+}
+
+/* =========================================================
+   Work cell base
+   ========================================================= */
+
+.workcell {
+    width: 26px;
+    height: 26px;
+    margin: 2px 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: normal;
+    color: #c9b37c;
+    background: radial-gradient( ellipse at center, rgb(33,33,33) 0%, rgb(12,12,12) 100% );
+    border: 1px solid rgb(50,50,50);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), inset 0 -1px 0 rgba(0,0,0,0.75);
+    position: relative;
+}
+
+/* =========================================================
+   Manual priorities toggle
+   ========================================================= */
+
+.manual-priorities {
+    width: 220px;
+    display: flex;
+    align-items: center;
+    padding-left: 6px;
+    gap: 8px;
+    color: #cfd6dc;
+    font-size: 14px;
+}
+
+    .manual-priorities .label {
+        white-space: nowrap;
+    }
+
+    .manual-priorities .state {
+        width: 18px;
+        height: 18px;
+        display: inline-block;
+        position: relative;
+        top: 1px;
+    }
+
+        .manual-priorities .state.off::before,
+        .manual-priorities .state.off::after {
+            content: "";
+            position: absolute;
+            left: 8px;
+            top: 1px;
+            width: 3px;
+            height: 16px;
+            background: #b01919;
+            border-radius: 1px;
+        }
+
+        .manual-priorities .state.off::before {
+            transform: rotate(45deg);
+        }
+
+        .manual-priorities .state.off::after {
+            transform: rotate(-45deg);
+        }
+
+        .manual-priorities .state.on::before {
+            content: "";
+            position: absolute;
+            left: 6px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: 3px solid #1fb51f;
+            border-top: 0;
+            border-left: 0;
+            transform: rotate(45deg);
+        }
+
+/* =========================================================
+   Checkbox mode visuals (uses ::before)
+   ========================================================= */
+
+#worktab.manual-off .workcell.enabled::before {
+    content: "";
+    position: absolute;
+    right: 6px;
+    bottom: 6px;
+    width: 10px;
+    height: 6px;
+    border: 3px solid #1fb51f;
+    border-top: 0;
+    border-right: 0;
+    transform: rotate(-45deg);
+}
+
+/* =========================================================
+   Ideology-opposed work
+   ========================================================= */
+
+.workcell.ideo-opposed {
+    border-color: #d18b2c;
+    box-shadow: inset 0 0 0 1px rgba(255,165,0,0.35), inset 0 -1px 0 rgba(0,0,0,0.75);
+}
+
+/* =========================================================
+   Passion indicators (uses ::after)
+   ========================================================= */
+
+.workcell.passion-1::after,
+.workcell.passion-2::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 10px;
+    height: 10px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.9;
+    pointer-events: none;
+}
+
+.workcell.passion-1::after {
+    background-image: url("/mod/worktab/assets/passion_minor.png");
+}
+
+.workcell.passion-2::after {
+    background-image: url("/mod/worktab/assets/passion_major.png");
+}
+
+/* =========================================================
+   Non-existent work cells
+   ========================================================= */
+
+.workcell.empty {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    pointer-events: none;
+}
+
+.workcell.activity-recent {
+    box-shadow: inset 0 0 0 1px rgba(0,255,0,0.45), 0 0 6px rgba(0,255,0,0.35);
+}
+
+.workcell.activity-high:not(.activity-recent) {
+    box-shadow: inset 0 0 0 1px rgba(0,255,0,0.25);
+}

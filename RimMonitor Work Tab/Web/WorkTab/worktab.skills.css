@@ -1,0 +1,213 @@
+﻿/* =========================================================
+   Skill level backgrounds (0–14 grayscale)
+   ========================================================= */
+
+.skill-0 {
+    background: radial-gradient(circle, rgb(33,33,33), rgb(12,12,12));
+}
+
+.skill-1 {
+    background: radial-gradient(circle, rgb(36,36,36), rgb(21,21,21));
+}
+
+.skill-2 {
+    background: radial-gradient(circle, rgb(40,40,40), rgb(29,29,29));
+}
+
+.skill-3 {
+    background: radial-gradient(circle, rgb(43,43,43), rgb(37,37,37));
+}
+
+.skill-4 {
+    background: radial-gradient(circle, rgb(46,46,46), rgb(46,46,46));
+}
+
+.skill-5 {
+    background: radial-gradient(circle, rgb(49,49,49), rgb(52,52,52));
+}
+
+.skill-6 {
+    background: radial-gradient(circle, rgb(52,52,52), rgb(57,57,57));
+}
+
+.skill-7 {
+    background: radial-gradient(circle, rgb(55,55,55), rgb(63,63,63));
+}
+
+.skill-8 {
+    background: radial-gradient(circle, rgb(58,58,58), rgb(68,68,68));
+}
+
+.skill-9 {
+    background: radial-gradient(circle, rgb(62,62,62), rgb(74,74,74));
+}
+
+.skill-10 {
+    background: radial-gradient(circle, rgb(65,65,65), rgb(79,79,79));
+}
+
+.skill-11 {
+    background: radial-gradient(circle, rgb(68,68,68), rgb(85,85,85));
+}
+
+.skill-12 {
+    background: radial-gradient(circle, rgb(71,71,71), rgb(90,90,90));
+}
+
+.skill-13 {
+    background: radial-gradient(circle, rgb(74,74,74), rgb(96,96,96));
+}
+
+.skill-14 {
+    background: radial-gradient(circle, rgb(77,77,77), rgb(101,101,101));
+}
+
+
+/* =========================================================
+   Skill 15–20 (yellow transition)
+   ========================================================= */
+
+.skill-15 {
+    background: radial-gradient(circle, rgb(78,78,74), rgb(102,101,95));
+}
+
+.skill-16 {
+    background: radial-gradient(circle, rgb(80,80,68), rgb(103,102,83));
+}
+
+.skill-17 {
+    background: radial-gradient(circle, rgb(81,80,65), rgb(103,102,78));
+}
+
+.skill-18 {
+    background: radial-gradient(circle, rgb(81,80,65), rgb(103,102,78));
+}
+
+.skill-19 {
+    background: radial-gradient(circle, rgb(82,81,62), rgb(104,102,72));
+}
+
+.skill-20 {
+    background: radial-gradient(circle, rgb(83,82,59), rgb(104,102,66));
+}
+
+
+/* =========================================================
+   Borders per skill level
+   ========================================================= */
+
+.skill-0 {
+    border-color: rgb(50,50,50);
+}
+
+.skill-1 {
+    border-color: rgb(54,54,54);
+}
+
+.skill-2 {
+    border-color: rgb(57,57,57);
+}
+
+.skill-3 {
+    border-color: rgb(60,60,60);
+}
+
+.skill-4 {
+    border-color: rgb(64,64,64);
+}
+
+.skill-5 {
+    border-color: rgb(83,83,83);
+}
+
+.skill-6 {
+    border-color: rgb(102,102,102);
+}
+
+.skill-7 {
+    border-color: rgb(102,102,102);
+}
+
+.skill-8 {
+    border-color: rgb(122,122,122);
+}
+
+.skill-9 {
+    border-color: rgb(140,140,140);
+}
+
+.skill-10 {
+    border-color: rgb(160,160,160);
+}
+
+.skill-11 {
+    border-color: rgb(179,179,179);
+}
+
+.skill-12 {
+    border-color: rgb(198,198,198);
+}
+
+.skill-13 {
+    border-color: rgb(236,236,236);
+}
+
+.skill-14 {
+    border-color: rgb(255,255,255);
+}
+
+.skill-15 {
+    border-color: rgb(255,247,112);
+}
+
+.skill-16 {
+    border-color: rgb(255,232,127);
+}
+
+.skill-17 {
+    border-color: rgb(255,255,85);
+}
+
+.skill-18 {
+    border-color: rgb(255,217,42);
+}
+
+.skill-19 {
+    border-color: rgb(255,210,0);
+}
+
+.skill-20 {
+    border-color: rgb(255,210,0);
+}
+
+
+/* =========================================================
+   Low-skill warning (red border)
+   ========================================================= */
+
+.workcell.low-skill {
+    border-color: #8b0000 !important;
+    box-shadow: inset 0 0 0 1px rgba(255,0,0,0.35), inset 0 -1px 0 rgba(0,0,0,0.75);
+}
+
+
+/* Manual priority number colors */
+.manual-on .workcell[data-priority="1"] {
+    color: #00E600;
+}
+
+.manual-on .workcell[data-priority="2"] {
+    color: #E6CF73;
+}
+
+.manual-on .workcell[data-priority="3"] {
+    color: #B8A173;
+}
+
+.manual-on .workcell[data-priority="4"] {
+    color: #A4A4A4;
+}
+
+.manual-on .workcell[data-priority="0"] {
+    color: inherit;
+}
