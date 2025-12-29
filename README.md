@@ -10,7 +10,9 @@ The project is intentionally structured to separate game state, publication, and
 
 RimMonitor API integration
 
-The Work Tab does not expose RimWorld state directly to the UI. Instead, it publishes a consolidated snapshot that is consumed by both the in-game tab and the web interface.
+The Work Tab does not expose RimWorld state directly to the UI. Instead, it publishes a consolidated snapshot that is consumed by the web interface.
+
+This mod does not yet use the data published by RimMonitor, but next versions will.
 
 The integration follows these principles:
 
