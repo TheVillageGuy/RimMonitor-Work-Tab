@@ -57,7 +57,7 @@ namespace RimMonitorWorkTab.ColonistPriority.RunTime
             sb.AppendLine("<html lang=\"en\">");
             sb.AppendLine("<head>");
             sb.AppendLine("<meta charset=\"utf-8\">");
-            sb.AppendLine("<title>Work Tab</title>");
+            sb.AppendLine("<title>RimMonitor · Work Tab</title>");
 
             sb.AppendLine("<style>");
             sb.AppendLine(cssBase);
