@@ -93,13 +93,14 @@ namespace RimMonitorWorkTab.Web
                     try
                     {
                         ApplyPriority(mapId, pawnId, workTypeId, priority);
-                        WorkTabGameComponent.RequestRebuild();
+                        WorkTabGameComponent.WakeWorker();
                     }
                     catch (Exception ex)
                     {
                         Log.Error("[WorkTab] Failed to apply priority: " + ex);
                     }
                 });
+
 
                 // SUCCESS RESPONSE
                 WriteText(ctx, "", "text/plain");

@@ -1,7 +1,9 @@
 ﻿using HarmonyLib;
-using RimWorld;
-using Verse;
+using RimMonitorWorkTab.ColonistPriority.RunTime.Deltas;
 using RimMonitorWorkTab.Core;
+using RimWorld;
+using System.Reflection;
+using Verse;
 
 namespace RimMonitorWorkTab.ColonistPriority.RunTime.Patches
 {
@@ -14,42 +16,72 @@ namespace RimMonitorWorkTab.ColonistPriority.RunTime.Patches
             harmony.PatchAll();
         }
 
-        /* =========================================================
-           Work priority mutations (enable/disable included)
-           ========================================================= */
-
         [HarmonyPatch(typeof(Pawn_WorkSettings), nameof(Pawn_WorkSettings.SetPriority))]
-        private static class Patch_SetPriority
+        internal static class Patch_SetPriority
         {
-            static void Postfix()
+            private static readonly FieldInfo pawnField =
+                AccessTools.Field(typeof(Pawn_WorkSettings), "pawn");
+
+            static void Postfix(Pawn_WorkSettings __instance, WorkTypeDef w, int priority)
             {
-                WorkTabGameComponent.RequestRebuild();
+                if (__instance == null || w == null)
+                    return;
+
+                Pawn pawn = pawnField?.GetValue(__instance) as Pawn;
+                if (pawn == null)
+                    return;
+
+                WorkTabDeltaQueue.Enqueue(new WorkTabDelta
+                {
+                    Kind = WorkTabDeltaKind.PriorityChanged,
+                    PawnThingId = pawn.thingIDNumber,
+                    WorkTypeId = w.defName,
+                    Priority = priority
+                });
+
+                WorkTabGameComponent.WakeWorker();
             }
         }
-
-        /* =========================================================
-           Manual priorities toggle
-           ========================================================= */
 
         [HarmonyPatch(typeof(PlaySettings), nameof(PlaySettings.useWorkPriorities), MethodType.Setter)]
         private static class Patch_UseWorkPriorities
         {
             static void Postfix()
             {
-                WorkTabGameComponent.RequestRebuild();
+                if (Current.Game == null) return;
+
+                WorkTabDeltaQueue.Enqueue(new WorkTabDelta
+                {
+                    Kind = WorkTabDeltaKind.ManualPrioritiesChanged,
+                    BoolValue = Current.Game.playSettings.useWorkPriorities
+                });
+
+                WorkTabGameComponent.WakeWorker();
             }
         }
 
-        /* =========================================================
-           Ideology / mode reapplication
-           ========================================================= */
-
         [HarmonyPatch(typeof(Pawn_WorkSettings), nameof(Pawn_WorkSettings.Notify_UseWorkPrioritiesChanged))]
-        private static class Patch_NotifyWorkSettingsChanged
+        private static class Patch_Notify_UseWorkPrioritiesChanged
         {
-            static void Postfix()
+            private static readonly FieldInfo pawnField =
+                AccessTools.Field(typeof(Pawn_WorkSettings), "pawn");
+
+            static void Postfix(Pawn_WorkSettings __instance)
             {
-                WorkTabGameComponent.RequestRebuild();
+                if (__instance == null)
+                    return;
+
+                Pawn pawn = pawnField?.GetValue(__instance) as Pawn;
+                if (pawn == null)
+                    return;
+
+                WorkTabDeltaQueue.Enqueue(new WorkTabDelta
+                {
+                    Kind = WorkTabDeltaKind.PawnWorkSettingsReapplied,
+                    PawnThingId = pawn.thingIDNumber
+                });
+
+                WorkTabGameComponent.WakeWorker();
             }
         }
     }

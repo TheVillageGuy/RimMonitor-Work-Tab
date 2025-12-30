@@ -6,7 +6,7 @@ namespace RimMonitorWorkTab.ColonistPriority.RunTime.State
     internal sealed class WorkTabWorldState
     {
         // Monotonic revision number for client-side sync
-        public int Revision;
+        
 
         public bool ManualPrioritiesEnabled;
 

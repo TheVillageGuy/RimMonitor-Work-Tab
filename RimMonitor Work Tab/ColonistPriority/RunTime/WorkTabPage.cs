@@ -6,6 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using static UnityEngine.UI.GridLayoutGroup;
 
 namespace RimMonitorWorkTab.ColonistPriority.RunTime
 {
@@ -16,7 +17,7 @@ namespace RimMonitorWorkTab.ColonistPriority.RunTime
         // Monotonic revision counter for client-side sync
         private static int _revisionCounter = 0;
 
-        public static void PublishStateFromWorker(WorkTabWorldState state)
+                public static void PublishStateFromWorker(WorkTabWorldState state)
         {
             _latestState = state;
             _revisionCounter++;
@@ -120,7 +121,6 @@ namespace RimMonitorWorkTab.ColonistPriority.RunTime
             var sb = new StringBuilder(8192);
             sb.Append("{");
 
-            sb.Append("\"revision\":").Append(state.Revision).Append(",");
 
             sb.Append("\"manualPrioritiesEnabled\":");
             sb.Append(state.ManualPrioritiesEnabled ? "true" : "false");
