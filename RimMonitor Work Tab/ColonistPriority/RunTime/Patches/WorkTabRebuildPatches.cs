@@ -41,24 +41,7 @@ namespace RimMonitorWorkTab.ColonistPriority.RunTime.Patches
 
                 WorkTabGameComponent.WakeWorker();
             }
-        }
-
-        [HarmonyPatch(typeof(PlaySettings), nameof(PlaySettings.useWorkPriorities), MethodType.Setter)]
-        private static class Patch_UseWorkPriorities
-        {
-            static void Postfix()
-            {
-                if (Current.Game == null) return;
-
-                WorkTabDeltaQueue.Enqueue(new WorkTabDelta
-                {
-                    Kind = WorkTabDeltaKind.ManualPrioritiesChanged,
-                    BoolValue = Current.Game.playSettings.useWorkPriorities
-                });
-
-                WorkTabGameComponent.WakeWorker();
-            }
-        }
+        }    
 
         [HarmonyPatch(typeof(Pawn_WorkSettings), nameof(Pawn_WorkSettings.Notify_UseWorkPrioritiesChanged))]
         private static class Patch_Notify_UseWorkPrioritiesChanged

@@ -40,9 +40,12 @@ namespace RimMonitorWorkTab.ColonistPriority.Worker
             }
         }
 
+
+        private int wakePending;
         public void Wake()
         {
-            wake.Set();
+            if (Interlocked.Exchange(ref wakePending, 1) == 0)
+                wake.Set();
         }
 
         private void Run()
@@ -50,6 +53,7 @@ namespace RimMonitorWorkTab.ColonistPriority.Worker
             while (true)
             {
                 wake.WaitOne();
+                Interlocked.Exchange(ref wakePending, 0);
 
                 // 1) Bootstrap/resync if provided
                 WorkTabRawSnapshot bootstrap;

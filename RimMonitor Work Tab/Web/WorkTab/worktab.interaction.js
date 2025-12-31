@@ -64,19 +64,22 @@
         return index;
     }
 
-    function computeNextPriority(current, manualEnabled) {
+    function computeNextPriority(current, manualEnabled, dir) {
         if (manualEnabled) {
-            // Manual numeric mode (1..4, 0 off): vanilla-like cycling.
-            // Keep the existing behavior: 0->4->3->2->1->0 (left-click path)
-            // Drag uses one computed value; we don't want button-specific semantics here.
-            if (current === 0) return 4;
-            if (current === 1) return 0;
-            return current - 1;
+            if (dir > 0) {
+                // RIGHT click → increase: 0→1→2→3→4→0
+                if (current === 0) return 1;
+                if (current === 4) return 0;
+                return current + 1;
+            } else {
+                // LEFT click → decrease: 0→4→3→2→1→0
+                if (current === 0) return 4;
+                if (current === 1) return 0;
+                return current - 1;
+            }
         }
 
-        // Checkbox mode (manual priorities OFF):
-        // Left and right must behave the same: toggle.
-        // Enabled => 0, Disabled => 3
+        // Checkbox mode unchanged
         return (current > 0) ? 0 : 3;
     }
 
@@ -131,10 +134,9 @@
 
     var lastAppliedKey = null;
 
-    function beginDrag(root, cell) {
+    function beginDrag(root, cell, dir) {
         if (!cell) return;
 
-        // Safety: placeholders must never start a drag.
         if (cell.classList && cell.classList.contains("empty"))
             return;
 
@@ -147,7 +149,7 @@
         startCol = parseIntSafe(cell.dataset.colIndex, 0);
 
         var current = parseIntSafe(cell.dataset.priority, 0);
-        var next = computeNextPriority(current, dragManualEnabled);
+        var next = computeNextPriority(current, dragManualEnabled, dir);
         if (next === null || next === undefined) return;
 
         dragNextValue = next;
@@ -159,11 +161,11 @@
         dragging = true;
         root.classList.add("dragging");
 
-        // Apply to starting cell immediately.
         applyLocalPriority(cell, dragNextValue, dragManualEnabled);
         postPriority(cell, dragNextValue);
         lastAppliedKey = cellKey(startMapId, String(startRow), String(startCol));
     }
+
 
     function endDrag(root) {
         if (!dragging) return;
@@ -281,7 +283,7 @@
 
         // In checkbox mode, left and right are identical: begin drag either way.
         // In manual mode, same (we compute a single dragNextValue).
-        beginDrag(root, cell);
+        beginDrag(root, cell, e.button === 2 ? +1 : -1);
     }, { passive: false });
 
     document.addEventListener("mouseup", function (e) {
