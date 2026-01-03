@@ -72,14 +72,12 @@ namespace RimMonitorWorkTab.RimMonitor
                 _getPawnActivitySnapshotMI =
                     AccessTools.Method(apiType, "GetPawnActivitySnapshot", Type.EmptyTypes);
 
-                // RegisterWebsiteButton(string id, string label, string imageUrl, string href, bool newTab)
+                // RegisterWebsiteButton(string id, string label, string imageUrl, string href)
                 MethodInfo regWebBtnMI = AccessTools.Method(
                     apiType,
                     "RegisterWebsiteButton",
                     new[] { typeof(string), typeof(string), typeof(string), typeof(string) }
                 );
-
-private static readonly Action<string, string, string, string> _registerWebsiteButton;
 
         // RegisterIncidentButton(string id, string label, string imageUrl, string triggerPath)
         MethodInfo regIncidentBtnMI = AccessTools.Method(
