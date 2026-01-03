@@ -32,7 +32,7 @@ namespace RimMonitorWorkTab.RimMonitor
         private static readonly Action<Action> _enqueueOnMainThread;
         private static readonly MethodInfo _getPawnActivitySnapshotMI;
 
-        private static readonly Action<string, string, string, string, bool> _registerWebsiteButton;
+        private static readonly Action<string, string, string, string > _registerWebsiteButton;
 
         // Upgraded incident API support
         private static readonly Action<string, string, string, string> _registerIncidentButton;
@@ -76,20 +76,13 @@ namespace RimMonitorWorkTab.RimMonitor
                 MethodInfo regWebBtnMI = AccessTools.Method(
                     apiType,
                     "RegisterWebsiteButton",
-                    new[] { typeof(string), typeof(string), typeof(string), typeof(string), typeof(bool) }
+                    new[] { typeof(string), typeof(string), typeof(string), typeof(string) }
                 );
 
-                if (regWebBtnMI != null)
-                {
-                    _registerWebsiteButton =
-                        (Action<string, string, string, string, bool>)
-                        regWebBtnMI.CreateDelegate(
-                            typeof(Action<string, string, string, string, bool>)
-                        );
-                }
+private static readonly Action<string, string, string, string> _registerWebsiteButton;
 
-                // RegisterIncidentButton(string id, string label, string imageUrl, string triggerPath)
-                MethodInfo regIncidentBtnMI = AccessTools.Method(
+        // RegisterIncidentButton(string id, string label, string imageUrl, string triggerPath)
+        MethodInfo regIncidentBtnMI = AccessTools.Method(
                     apiType,
                     "RegisterIncidentButton",
                     new[] { typeof(string), typeof(string), typeof(string), typeof(string) }
@@ -207,13 +200,13 @@ namespace RimMonitorWorkTab.RimMonitor
             string id,
             string label,
             string imageUrl,
-            string href,
-            bool newTab)
+            string href
+            )
         {
             if (string.IsNullOrEmpty(id))
                 return;
 
-            _registerWebsiteButton?.Invoke(id, label, imageUrl, href, newTab);
+            _registerWebsiteButton?.Invoke(id, label, imageUrl, href);
         }
 
         public static void RegisterIncidentButton(

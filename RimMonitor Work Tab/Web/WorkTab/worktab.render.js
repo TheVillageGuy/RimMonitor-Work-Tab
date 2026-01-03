@@ -9,6 +9,8 @@
     - Remain stable across refreshes (no flicker / no flashing)
 */
 
+let lastKnownRevision = -1;
+
 (function () {
 
     function renderWorkTab(state) {
@@ -260,8 +262,8 @@
             .then(r => r.json())
             .then(data => {
                 const rev = data.revision;
-                if (rev !== lastRevision) {
-                    lastRevision = rev;
+                if (rev !== lastKnownRevision) {
+                    lastKnownRevision = rev;
                     pollDelay = MIN_DELAY;
                     lastChangeTime = Date.now();
 

@@ -21,8 +21,7 @@ namespace RimMonitorWorkTab.Web
                     id: "worktab",
                     label: "Work",
                     imageUrl: null,
-                    href: "/mod/worktab",
-                    newTab: false
+                    href: "/mod/worktab"
                 );
 
                 Log.Message("[WorkTab] Registered Work tab button with RimMonitor");
