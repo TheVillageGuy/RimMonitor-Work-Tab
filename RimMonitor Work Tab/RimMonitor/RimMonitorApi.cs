@@ -8,7 +8,6 @@ using Verse;
 namespace RimMonitorWorkTab.RimMonitor
 {
     /// <summary>
-    /// Optional integration bridge to RimMonitor.
     /// - No compile-time dependency on RimMonitor.
     /// - Uses reflection to bind RimMonitor's public APIs if present.
     /// - ALL RimMonitor interaction in this mod goes through this class.
