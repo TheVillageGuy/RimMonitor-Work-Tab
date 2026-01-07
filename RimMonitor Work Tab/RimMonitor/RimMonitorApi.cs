@@ -255,7 +255,7 @@ namespace RimMonitorWorkTab.RimMonitor
 
             if (_registerExternalWebHandlerMI == null)
             {
-                Verse.Log.Warning("[WorkTab] RimMonitor does AGAIN NOT expose ExternalWebHandlers");
+                Verse.Log.Warning("[WorkTab] RimMonitor currently does not expose ExternalWebHandlers");
                 return;
             }
 
